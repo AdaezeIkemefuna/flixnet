@@ -1,7 +1,3 @@
-# flixnet
-
-A movie search app with sorting features, pagination and extended event handlers.
-
 <div id="top"></div>
 
 <!-- PROJECT LOGO -->
