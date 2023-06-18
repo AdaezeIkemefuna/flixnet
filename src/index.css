@@ -471,7 +471,7 @@ body {
 
   .search {
     margin-left: 1rem;
-    min-width: none;
+    min-width: 50%;
   }
 
   .num-results {
@@ -479,5 +479,10 @@ body {
   }
   .list h3 {
     font-size: 1.3rem;
+  }
+
+  .list h5,
+  .list p {
+    font-size: 1rem;
   }
 }

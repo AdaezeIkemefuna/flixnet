@@ -142,6 +142,13 @@ export default function MovieDetails({
             </p>
             <p>Directed by: {producers}</p>
             <p>Spoken Languages: {languages}</p>
+
+            <br />
+            <br />
+
+            <button className="btn-back" onClick={onClose}>
+              Go back
+            </button>
           </section>
         </>
       )}
