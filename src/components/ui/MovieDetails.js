@@ -82,6 +82,7 @@ export default function MovieDetails({
             <button className="btn-back" onClick={onClose}>
               &larr;
             </button>
+
             <img src={poster} alt={`Poster of ${movie}`} />
             <div className="details-overview">
               <h2>{title}</h2>
@@ -101,7 +102,7 @@ export default function MovieDetails({
                 <>
                   <StarRating
                     maxRating={10}
-                    size={24}
+                    size={15}
                     onSetRating={setUserRating}
                   />
                   {userRating > 0 && (

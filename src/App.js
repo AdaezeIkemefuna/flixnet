@@ -16,7 +16,12 @@ export default function App() {
   const [selectId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
+  const [showMobile, setShowMobile] = useState(false);
+
+  //pagination
+  const [pageNumber, setPageNumber] = useState(0);
+  const bulletinsPerPage = 6;
+  const pagesVisited = pageNumber * bulletinsPerPage;
 
   useEffect(
     function () {
@@ -25,6 +30,7 @@ export default function App() {
         try {
           setIsLoading(true);
           setError("");
+          setPageNumber(0);
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal }
@@ -35,6 +41,8 @@ export default function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not found!");
           setMovies(data.Search);
+          console.log(data.Search);
+
           setError("");
         } catch (err) {
           console.error(err.message);
@@ -56,20 +64,8 @@ export default function App() {
         controller.abort();
       };
     },
-    [query, pageNumber]
+    [query]
   );
-
-  //   const handleScroll = () => {
-  //   if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoading) {
-  //     return;
-  //   }
-  //   fetchData();
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [isLoading]);
 
   //Event Handlers
   function handleMovieId(id) {
@@ -87,56 +83,85 @@ export default function App() {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
+  //mobile view
+  console.log(showMobile);
+
+  const handleMobile = () => {
+    setShowMobile((prev) => !prev);
+    console.log("clicked");
+  };
+
   return (
     <>
       <NavBar query={query} setQuery={setQuery} movies={movies} />
 
-      <Main>
-        <Box>
+      <main className="main">
+        <div className="box">
           {isLoading && <Loader />}
+          {!movies.length && !error && (
+            <div className="loader initial">
+              Search for your favourite movies!
+            </div>
+          )}
           {!isLoading && !error && (
-            <MovieList movies={movies} onSelect={handleMovieId} />
+            <MovieList
+              movies={movies}
+              onSelect={handleMovieId}
+              pagesVisited={pagesVisited}
+              bulletinsPerPage={bulletinsPerPage}
+              setPageNumber={setPageNumber}
+              setShowMobile={setShowMobile}
+            />
           )}
           {error && <ErrorMessage message={error} />}
-        </Box>
+        </div>
 
-        <Box>
+        <div className="box movie-details">
           {selectId ? (
             <MovieDetails
               selectId={selectId}
               onClose={handleCloseMovie}
               onAddWatched={handleAddWatched}
               watched={watched}
+              handleMobile={handleMobile}
             />
           ) : (
             <>
-              <WatchedSummary watched={watched} />
+              <WatchedSummary watched={watched} setShowMobile={setShowMobile} />
               <WatchedMoviesList
                 watched={watched}
                 onDeleteWatched={handleDeleteWatched}
               />
             </>
           )}
-        </Box>
-      </Main>
+        </div>
+
+        {showMobile ? (
+          <div className="mobile">
+            <div className="box mobile-box">
+              {selectId ? (
+                <MovieDetails
+                  selectId={selectId}
+                  onClose={handleCloseMovie}
+                  onAddWatched={handleAddWatched}
+                  watched={watched}
+                />
+              ) : (
+                <>
+                  <WatchedSummary
+                    watched={watched}
+                    setShowMobile={setShowMobile}
+                  />
+                  <WatchedMoviesList
+                    watched={watched}
+                    onDeleteWatched={handleDeleteWatched}
+                  />
+                </>
+              )}
+            </div>
+          </div>
+        ) : undefined}
+      </main>
     </>
-  );
-}
-
-function Main({ children }) {
-  return <main className="main">{children}</main>;
-}
-
-function Box({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <div className="box">
-      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
-        {isOpen ? "–" : "+"}
-      </button>
-
-      {isOpen && children}
-    </div>
   );
 }
