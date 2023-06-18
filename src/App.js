@@ -7,7 +7,7 @@ import MovieDetails from "./components/ui/MovieDetails";
 import WatchedSummary from "./components/ui/WatchedSummary";
 import WatchedMoviesList from "./components/ui/WatchedMoviesList";
 
-const KEY = "8dae2df9";
+const KEY = "878a8fff856f6992866822cc5cee102c";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
@@ -32,7 +32,7 @@ export default function App() {
           setError("");
           setPageNumber(0);
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${KEY}`,
             { signal: controller.signal }
           );
 
@@ -40,8 +40,8 @@ export default function App() {
             throw new Error("Something went wrong with fetching movies");
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not found!");
-          setMovies(data.Search);
-          console.log(data.Search);
+          setMovies(data.results);
+          console.log(data.results);
 
           setError("");
         } catch (err) {
@@ -84,12 +84,6 @@ export default function App() {
   }
 
   //mobile view
-  console.log(showMobile);
-
-  const handleMobile = () => {
-    setShowMobile((prev) => !prev);
-    console.log("clicked");
-  };
 
   return (
     <>
@@ -98,7 +92,7 @@ export default function App() {
       <main className="main">
         <div className="box">
           {isLoading && <Loader />}
-          {!movies.length && !error && (
+          {!movies?.length && !error && (
             <div className="loader initial">
               Search for your favourite movies!
             </div>
@@ -123,7 +117,6 @@ export default function App() {
               onClose={handleCloseMovie}
               onAddWatched={handleAddWatched}
               watched={watched}
-              handleMobile={handleMobile}
             />
           ) : (
             <>

@@ -22,10 +22,15 @@ export default function MovieList({
   if (sortBy === "input") sortedMovies = movies;
 
   if (sortBy === "year")
-    sortedMovies = movies.slice().sort((a, b) => b.Year.localeCompare(a.Year));
+    sortedMovies = movies
+      .slice()
+      .sort((a, b) => b.release_date.localeCompare(a.release_date));
 
   if (sortBy === "title")
-    sortedMovies = movies.slice().sort((a, b) => a.Title - b.Title);
+    sortedMovies = movies.slice().sort((a, b) => a.title - b.title);
+
+  if (sortBy === "popularity")
+    sortedMovies = movies.slice().sort((a, b) => a.popularity - b.popularity);
 
   return (
     <div className="movie-container">
@@ -33,6 +38,7 @@ export default function MovieList({
         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="input">Sort</option>
           <option value="title">Sort by Title</option>
+          <option value="popularity">Sort by popularity</option>
           <option value="year">Sort by latest release</option>
         </select>
       </div>

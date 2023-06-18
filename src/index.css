@@ -189,8 +189,10 @@ body {
 }
 
 .list img {
-  width: 100%;
+  width: 60px;
+  height: 70px;
   grid-row: 1 / -1;
+  margin-left: -1rem;
 }
 
 .list h3 {
