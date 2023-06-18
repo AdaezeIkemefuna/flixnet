@@ -453,6 +453,9 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
+  html {
+    font-size: 14px;
+  }
   .mobile-box {
     width: 90vw;
     max-width: 90vw;
@@ -471,10 +474,13 @@ body {
 
   .search {
     margin-left: 1rem;
-    min-width: 250px;
+    min-width: 150px;
   }
 
   .num-results {
     display: none;
+  }
+  .list h3 {
+    font-size: 1.5rem;
   }
 }
