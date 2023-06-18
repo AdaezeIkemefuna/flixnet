@@ -385,6 +385,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   align-self: flex-end;
+  display: none;
 }
 .movie-container {
   position: relative;
@@ -447,7 +448,9 @@ body {
   .movie-details {
     display: none;
   }
-
+  .go-back {
+    display: block;
+  }
   .mobile {
     display: block;
     display: flex;

@@ -32,16 +32,16 @@ export default function MovieDetails({
     spoken_languages,
   } = movie;
 
-  const producers = production_companies?.map((prod) => {
-    return <span>{prod.name + ", "}</span>;
+  const producers = production_companies?.map((prod, index) => {
+    return <span key={index}>{prod.name + ", "}</span>;
   });
 
-  const genre = genres?.map((genre) => {
-    return <span>{genre.name + ","}</span>;
+  const genre = genres?.map((genre, index) => {
+    return <span key={index}>{genre.name + ","}</span>;
   });
 
-  const languages = spoken_languages?.map((lang) => {
-    return <span>{lang.english_name + ", "}</span>;
+  const languages = spoken_languages?.map((lang, index) => {
+    return <span key={index}>{lang.english_name + ", "}</span>;
   });
   useEffect(
     function () {
@@ -117,6 +117,9 @@ export default function MovieDetails({
             </div>
           </header>
           <section>
+            <button className="go-back" onClick={onClose}>
+              Go back
+            </button>
             <div className="rating">
               {!isWatched ? (
                 <>
@@ -145,10 +148,6 @@ export default function MovieDetails({
 
             <br />
             <br />
-
-            <button className="go-back" onClick={onClose}>
-              Go back
-            </button>
           </section>
         </>
       )}
