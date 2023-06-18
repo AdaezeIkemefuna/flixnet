@@ -20,13 +20,13 @@ A movie search app with sorting features, pagination and personalized user stats
 <table>
     <tr>
       <td>
-          <img src="/flixnet-mobile.png" width="100%" title= "App in Mobile"  />
+          <img src="./src/screenshots/flixnet-mobile.PNG" width="100%" title= "App in Mobile"  />
       </td>
       <td>
-          <img src="/flixnet-ipad.png" width="100%" title="App in Tablet"/>
+          <img src="./src/screenshots/flixnet-ipad.png" width="100%" title="App in Tablet"/>
       </td>
       <td>
-          <img src="/flixnet-desktop.png" width="100%" title="App in Desktop"/>
+          <img src="./src/screenshots/flixnet-desktop.png" width="100%" title="App in Desktop"/>
       </td>
     </tr>
 </table>
