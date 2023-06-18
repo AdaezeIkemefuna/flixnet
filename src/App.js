@@ -20,7 +20,7 @@ export default function App() {
 
   //pagination
   const [pageNumber, setPageNumber] = useState(0);
-  const bulletinsPerPage = 6;
+  const bulletinsPerPage = 5;
   const pagesVisited = pageNumber * bulletinsPerPage;
 
   useEffect(
@@ -41,7 +41,6 @@ export default function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not found!");
           setMovies(data.results);
-          console.log(data.results);
 
           setError("");
         } catch (err) {

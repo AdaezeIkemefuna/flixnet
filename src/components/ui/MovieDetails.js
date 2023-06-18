@@ -146,7 +146,7 @@ export default function MovieDetails({
             <br />
             <br />
 
-            <button className="btn-back" onClick={onClose}>
+            <button className="go-back" onClick={onClose}>
               Go back
             </button>
           </section>

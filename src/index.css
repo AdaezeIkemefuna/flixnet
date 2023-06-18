@@ -373,6 +373,19 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.go-back {
+  outline: none;
+  background-color: var(--color-background-100);
+  border: none;
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+  text-transform: capitalize;
+  color: var(--color-text);
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+}
 .movie-container {
   position: relative;
   height: 95%;
