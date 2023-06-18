@@ -20,7 +20,7 @@ export default function App() {
 
   //pagination
   const [pageNumber, setPageNumber] = useState(0);
-  const bulletinsPerPage = 5;
+  const bulletinsPerPage = 6;
   const pagesVisited = pageNumber * bulletinsPerPage;
 
   useEffect(
