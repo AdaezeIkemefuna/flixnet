@@ -11,17 +11,26 @@ const KEY = "878a8fff856f6992866822cc5cee102c";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [query, setQuery] = useState("");
   const [selectId, setSelectedId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showMobile, setShowMobile] = useState(false);
 
+  const [watched, setWatched] = useState(() => {
+    const stored = localStorage.getItem("watched");
+    if (!stored) return [];
+    else return JSON.parse(stored);
+  });
+
   //pagination
   const [pageNumber, setPageNumber] = useState(0);
   const bulletinsPerPage = 6;
   const pagesVisited = pageNumber * bulletinsPerPage;
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
 
   useEffect(
     function () {
